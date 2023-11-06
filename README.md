@@ -24,7 +24,6 @@
 	Version: 1.4.1
 	Home-page: https://pypi.org/project/tifffile/
 
-
 #1. "Simulated Date" folder contains the script for simulating the traning dataset for supervised learning.//
 #2. Codes of supervised learning on simluate data are in the "Supervised learning" folder.//
 #3. Codes of Unsupervised learning on real experimetnal data are in the "Unspervised learning" folder.//
