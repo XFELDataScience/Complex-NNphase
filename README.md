@@ -14,15 +14,15 @@
  
 01.     Name: Pytorch 
         Version: 1.8.0
-        Home-page: https://www.python.org/
+        Home-page: [https://www.python.org/](https://pytorch.org/get-started/previous-versions/)
 
-03.     Name: scipy
-	Version: 1.4.1
-	Home-page: https://www.scipy.org
+03.     Name: Scipy
+        Version: 1.8.0
+        Home-page: https://www.scipy.org/
 
-04.     Name: tifffile
-	Version: 1.4.1
-	Home-page: https://pypi.org/project/tifffile/
+04.     Name: tifffile 
+        Version: 1.8.0
+        Home-page: [https://www.tiffile.org/](https://pypi.org/project/tifffile/)
 
 #### 1. "Simulated Date" folder contains the script for simulating the traning dataset for supervised learning.
 #### 2. Codes of supervised learning on simluate data are in the "Supervised learning" folder.
