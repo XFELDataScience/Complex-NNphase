@@ -237,8 +237,9 @@ def main():
     
     criterion = nn.L1Loss()
     optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)
-    scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=args.lr/10, max_lr=args.lr, step_size_up=step_size,
-                                                  cycle_momentum=False, mode='triangular2')
+    # scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=args.lr/10, max_lr=args.lr, step_size_up=step_size,
+    #                                               cycle_momentum=False, mode='triangular2')
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=args.lr)
     
     metrics = {'losses':[],'val_losses':[], 'lrs':[], 'best_val_loss' : np.inf}
     sigx = 3
