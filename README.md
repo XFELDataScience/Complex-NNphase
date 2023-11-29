@@ -21,7 +21,7 @@
         Home-page: https://www.scipy.org/
 
 04.     Name: tifffile 
-        Version: 1.8.0
+        Version: 2023.9.26
         Home-page: https://pypi.org/project/tifffile/
 
 #### 1. "Simulated Date" folder contains the script for simulating the traning dataset for supervised learning.
