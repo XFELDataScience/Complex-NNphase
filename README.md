@@ -12,7 +12,7 @@
         Version: 3.8.0
         Home-page: https://www.python.org/
  
-02.	**Name: pytorch** 
+02.	'Name: pytorch'
 	Version: 1.8.0+cu101
 	Home-page: https://pytorch.org/https://pytorch.org/
 
