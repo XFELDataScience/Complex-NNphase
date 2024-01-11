@@ -173,15 +173,13 @@ def validate(model,validloader,metrics,epoch,criterion,optimizer):
     metrics['val_losses'].append([tot_val_loss/j,loss_re/j,loss_im/j])
   
 
-#%%
+#%% load sythentic data
 object_phase = []
 object_modulus = []
 detector_modulus = []
 
 
 synthetic_data_dir = args.data_dir
-
-
 data_dir = synthetic_data_dir + "/*.npz"
 print(data_dir)
 for f in glob.glob(data_dir):
@@ -234,6 +232,7 @@ test_data = TensorDataset(X_test_tensor)
 
 N_VALID = 1000
 N_TRAIN = X_train_tensor.shape[0]
+#validation data
 train_data2, valid_data = torch.utils.data.random_split(train_data,[N_TRAIN-N_VALID,N_VALID])
 print(len(train_data2),len(valid_data),len(test_data))
 
@@ -243,11 +242,10 @@ print(len(train_data2),len(valid_data),len(test_data))
 def main():
     model = Unet().to(device)
     
-    BATCH_SIZE = 64
-    LR = 0.001
-    trainloader = DataLoader(train_data2, batch_size=BATCH_SIZE, shuffle=True, num_workers=8)
-    validloader = DataLoader(valid_data, batch_size=BATCH_SIZE, shuffle=True, num_workers=8)
-    testloader = DataLoader(test_data, batch_size=BATCH_SIZE, shuffle=False, num_workers=8)
+    
+    trainloader = DataLoader(train_data2, batch_size=args.batch_size, shuffle=True, num_workers=8)
+    validloader = DataLoader(valid_data, batch_size=args.batch_size, shuffle=True, num_workers=8)
+    testloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=False, num_workers=8)
     
     
     iterations_per_epoch = np.floor((N_TRAIN-N_VALID)/BATCH_SIZE)+1 #Final batch will be less than batch size
@@ -257,7 +255,7 @@ def main():
     criterion = nn.L1Loss()
 
 
-    optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr = 10*args.lr)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=args.lr)
     
     metrics = {'losses':[],'val_losses':[], 'lrs':[], 'best_val_loss' : np.inf}
