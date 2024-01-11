@@ -225,10 +225,8 @@ print(len(train_data2),len(valid_data),len(test_data))
 def main():
     model = Unet().to(device)
         
-    BATCH_SIZE = 3
-    LR = 0.001
-    trainloader = DataLoader(train_data2, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
-    testloader = DataLoader(test_data, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
+    trainloader = DataLoader(train_data2, batch_size=args.batch_size, shuffle=True, num_workers=0)
+    testloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=False, num_workers=0)
     
     
     iterations_per_epoch = np.floor((N_TRAIN-N_VALID)/BATCH_SIZE)+1 #Final batch will be less than batch size
@@ -236,7 +234,7 @@ def main():
     print("LR step size is:", step_size, "which is every %d epochs" %(step_size/iterations_per_epoch))
     
     criterion = nn.L1Loss()
-    optimizer = torch.optim.Adam(model.parameters(), lr = args.lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr = 10*args.lr)
     # scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=args.lr/10, max_lr=args.lr, step_size_up=step_size,
     #                                               cycle_momentum=False, mode='triangular2')
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=args.lr)
