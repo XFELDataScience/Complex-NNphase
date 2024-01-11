@@ -14,6 +14,8 @@ def generate_ellipse(sigx,sigy,x1,y1):
     '''
     sigx: #X ellipse width in pixels (domain)
     sigy: #Y ellipse width
+    x1: width of output
+    y1: 
     '''
     rot=-(math.pi)*25/180    #rotation angle
     G1 = np.zeros([y1,x1])
@@ -26,9 +28,20 @@ def generate_ellipse(sigx,sigy,x1,y1):
     return G1
 
 def generate_random_phase(seed,x1,y1,G1):
+    '''
+    Input:
+    seed: value for the stochastic and reproducible.
+    x1: width of domain
+    y1: length of domain
+
+    Output:
+    A: Size of NxN continaing random generated phase.
+    
+    '''
+    
     offset_scale = 10
     np.random.seed(seed)
-    N = 1024;
+    N = 1024
     A = np.zeros([N,N],dtype = 'complex')
     for i in np.arange(10,N-20,x1-3,dtype=int):
         for j in np.arange(10,N-20,x1-3,dtype=int):
@@ -41,7 +54,14 @@ def generate_random_phase(seed,x1,y1,G1):
 
 
 def generate_Gaussian_support(rot):
-    N2=64
+    '''
+    Input:
+    rot: the rotation angle of Gaussian
+
+    Output:
+    G2: the Gaussian support
+    '''
+    N2=64 #the output size N2xN2
     G2 = np.zeros([N2,N2])
     sigx=9   #X ellipse width in pixels (support)
     sigy=30    #Y ellipse width
@@ -54,6 +74,23 @@ def generate_Gaussian_support(rot):
     return G2
 
 def Generate_synthetic_data(A,G2,N,N3):
+    '''
+    Generate synthetic data with random generated phase
+    Input:
+    A: random generated phase
+    G2: Gaussian Support
+    N: size of whole ramdom phase
+    N3: phase interval
+
+    Output:
+    
+    object_phase: phase in the real space
+    object_modulus: amplitude in the real space
+    modulus_detector: ampltude in the detector space
+
+
+    '''
+    
     N2 = G2.shape[0]
     object_phase = []
     object_modulus = []
@@ -88,8 +125,10 @@ G2 = generate_Gaussian_support(rot=-math.pi*35/180)
 
 #%%Generate simulated data
 for seed in range(100):
-    file_name = "./synthetic_data/data"+str(seed)
+    file_name = "./synthetic_data/data"+str(seed) #file path for saving sythentic data
     A = generate_random_phase(seed,x1,y1,G1)
+    #generated data
     object_phase, object_modulus, modulus_detector = Generate_synthetic_data(A,G2,N,N3)
+    #save generated data into specific file name path
     np.savez(file_name,object_phase=object_phase,object_modulus = object_modulus,modulus_detector = modulus_detector)
 
