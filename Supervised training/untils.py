@@ -38,6 +38,15 @@ def get_lr(optimizer):
         
 
 def Get_Gaussian_support(threshold):
+    '''
+    Input:
+    threshold: value larger than threshold will set 1, otherwise will set 0
+
+    Output:
+    Gaussian support 
+
+    '''
+    
     N2=64
     G2 = np.zeros([N2,N2])
     sigx=9   #X ellipse width in pixels (support)
